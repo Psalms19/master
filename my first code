@@ -1,1 +1,77 @@
+# Point of sale codes
+class MenuItem:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
 
+class RestaurantPOS:
+    def __init__(self):
+        self.menu = []
+        self.orders = []
+
+    def add_menu_item(self, item):
+        self.menu.append(item)
+
+    def display_menu(self):
+        print("\nMenu:")
+        for idx, item in enumerate(self.menu):
+            print(f"{idx + 1}. {item.name} - ${item.price:.2f}")
+
+    def take_order(self):
+        self.display_menu()
+        order = []
+        while True:
+            choice = input("\nEnter the menu item number to order (or 'done' to finish): ")
+            if choice.lower() == 'done':
+                break
+            try:
+                item_index = int(choice) - 1
+                if 0 <= item_index < len(self.menu):
+                    order.append(self.menu[item_index])
+                    print(f"Added {self.menu[item_index].name} to your order.")
+                else:
+                    print("Invalid item number. Please try again.")
+            except ValueError:
+                print("Please enter a valid number or 'done'.")
+
+        self.orders.append(order)
+        print("\nOrder placed successfully!")
+        self.print_order(order)
+
+    def print_order(self, order):
+        print("\nYour Order:")
+        total = 0
+        for item in order:
+            print(f"{item.name} - ${item.price:.2f}")
+            total += item.price
+        print(f"Total: ${total:.2f}")
+
+def main():
+    pos = RestaurantPOS()
+
+    # Adding some menu items
+    pos.add_menu_item(MenuItem("Burger", 9.99))
+    pos.add_menu_item(MenuItem("Pizza", 12.99))
+    pos.add_menu_item(MenuItem("Pasta", 11.99))
+    pos.add_menu_item(MenuItem("Salad", 7.99))
+    pos.add_menu_item(MenuItem("Soda", 1.99))
+
+    while True:
+        print("\nWelcome to the Restaurant POS System")
+        print("1. Display Menu")
+        print("2. Take Order")
+        print("3. Exit")
+        choice = input("Choose an option: ")
+
+        if choice == '1':
+            pos.display_menu()
+        elif choice == '2':
+            pos.take_order()
+        elif choice == '3':
+            print("Thank you for using the Restaurant POS System!")
+            break
+        else:
+            print("Invalid option. Please try again.")
+
+if __name__ == "__main__":
+    main()
