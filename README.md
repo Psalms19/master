@@ -1,5 +1,4 @@
 
-# master
 class ATM:
     def __init__(self):
         self.balance = 0.0
@@ -16,14 +15,14 @@ class ATM:
 
     def run(self):
         while True:
-            print("\nWelcome to the ATM!")
+            print("\nWelcome to First Bank!")
             print("1. Deposit Money")
             print("2. Check Balance")
             print("3. Exit")
 
-            choice = input("Please choose an option (1-3): ")
+            option = input("Please choose an option (1-3): ")
 
-            if choice == '1':
+            if option == '1':
                 try:
                     amount = float(input("Enter the amount to deposit: "))
                     self.deposit(amount)
